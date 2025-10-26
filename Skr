@@ -16,20 +16,20 @@ ScreenGui.Parent = player.PlayerGui
 local ToggleButton = Instance.new("ImageButton")
 ToggleButton.Name = "ToggleButton"
 ToggleButton.Image = "rbxassetid://113897764094984"
-ToggleButton.Size = UDim2.new(0, 50, 0, 50)
-ToggleButton.Position = UDim2.new(0, 10, 0.5, -25)
-ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
-ToggleButton.BackgroundTransparency = 0.3
+ToggleButton.Size = UDim2.new(0, 60, 0, 60)
+ToggleButton.Position = UDim2.new(0, 20, 0.5, -30)
+ToggleButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+ToggleButton.BackgroundTransparency = 0.2
 ToggleButton.BorderSizePixel = 0
 ToggleButton.Parent = ScreenGui
 
--- Main Menu Frame
+-- Main Menu Frame - Full Height
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 300, 0, 400)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)
-MainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-MainFrame.BorderColor3 = Color3.new(1, 1, 1)
+MainFrame.Size = UDim2.new(0, 350, 1, -40)
+MainFrame.Position = UDim2.new(0, 20, 0, 20)
+MainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+MainFrame.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
 MainFrame.BorderSizePixel = 2
 MainFrame.Visible = false
 MainFrame.Parent = ScreenGui
@@ -37,156 +37,184 @@ MainFrame.Parent = ScreenGui
 -- Close Button
 local CloseButton = Instance.new("TextButton")
 CloseButton.Name = "CloseButton"
-CloseButton.Size = UDim2.new(0, 30, 0, 30)
-CloseButton.Position = UDim2.new(1, -35, 0, 5)
-CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
+CloseButton.Size = UDim2.new(0, 35, 0, 35)
+CloseButton.Position = UDim2.new(1, -40, 0, 10)
+CloseButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
 CloseButton.TextColor3 = Color3.new(1, 1, 1)
 CloseButton.Text = "×"
-CloseButton.TextSize = 20
+CloseButton.TextSize = 24
+CloseButton.Font = Enum.Font.GothamBold
 CloseButton.Parent = MainFrame
 
 -- Title
 local Title = Instance.new("TextLabel")
 Title.Name = "Title"
-Title.Size = UDim2.new(0, 200, 0, 30)
-Title.Position = UDim2.new(0, 10, 0, 5)
+Title.Size = UDim2.new(1, -80, 0, 40)
+Title.Position = UDim2.new(0, 10, 0, 10)
 Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.new(1, 1, 1)
-Title.Text = "الأوامر"
+Title.Text = "SKR"
+Title.TextSize = 24
+Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = MainFrame
+
+-- Scrolling Frame for Commands
+local ScrollFrame = Instance.new("ScrollingFrame")
+ScrollFrame.Name = "ScrollFrame"
+ScrollFrame.Size = UDim2.new(1, -20, 1, -80)
+ScrollFrame.Position = UDim2.new(0, 10, 0, 60)
+ScrollFrame.BackgroundTransparency = 1
+ScrollFrame.BorderSizePixel = 0
+ScrollFrame.ScrollBarThickness = 6
+ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 500)
+ScrollFrame.Parent = MainFrame
 
 -- Flight Feature
 local FlightFrame = Instance.new("Frame")
 FlightFrame.Name = "FlightFrame"
-FlightFrame.Size = UDim2.new(1, -20, 0, 60)
-FlightFrame.Position = UDim2.new(0, 10, 0, 50)
-FlightFrame.BackgroundTransparency = 1
-FlightFrame.Parent = MainFrame
+FlightFrame.Size = UDim2.new(1, 0, 0, 70)
+FlightFrame.Position = UDim2.new(0, 0, 0, 10)
+FlightFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+FlightFrame.BorderSizePixel = 0
+FlightFrame.Parent = ScrollFrame
 
 local FlightLabel = Instance.new("TextLabel")
 FlightLabel.Name = "FlightLabel"
-FlightLabel.Size = UDim2.new(0, 150, 1, 0)
-FlightLabel.Position = UDim2.new(0, 0, 0, 0)
+FlightLabel.Size = UDim2.new(0, 200, 1, 0)
+FlightLabel.Position = UDim2.new(0, 15, 0, 0)
 FlightLabel.BackgroundTransparency = 1
 FlightLabel.TextColor3 = Color3.new(1, 1, 1)
 FlightLabel.Text = "طيران"
+FlightLabel.TextSize = 18
+FlightLabel.Font = Enum.Font.GothamBold
 FlightLabel.TextXAlignment = Enum.TextXAlignment.Left
 FlightLabel.Parent = FlightFrame
 
 local FlightToggle = Instance.new("TextButton")
 FlightToggle.Name = "FlightToggle"
-FlightToggle.Size = UDim2.new(0, 60, 0, 30)
-FlightToggle.Position = UDim2.new(1, -60, 0.5, -15)
-FlightToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+FlightToggle.Size = UDim2.new(0, 80, 0, 35)
+FlightToggle.Position = UDim2.new(1, -95, 0.5, -17.5)
+FlightToggle.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
 FlightToggle.TextColor3 = Color3.new(1, 1, 1)
-FlightToggle.Text = "O|X"
+FlightToggle.Text = "إقلاع"
+FlightToggle.TextSize = 14
+FlightToggle.Font = Enum.Font.Gotham
 FlightToggle.Parent = FlightFrame
 
 -- Speed Feature
 local SpeedFrame = Instance.new("Frame")
 SpeedFrame.Name = "SpeedFrame"
-SpeedFrame.Size = UDim2.new(1, -20, 0, 60)
-SpeedFrame.Position = UDim2.new(0, 10, 0, 120)
-SpeedFrame.BackgroundTransparency = 1
-SpeedFrame.Parent = MainFrame
+SpeedFrame.Size = UDim2.new(1, 0, 0, 100)
+SpeedFrame.Position = UDim2.new(0, 0, 0, 90)
+SpeedFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+SpeedFrame.BorderSizePixel = 0
+SpeedFrame.Parent = ScrollFrame
 
 local SpeedLabel = Instance.new("TextLabel")
 SpeedLabel.Name = "SpeedLabel"
-SpeedLabel.Size = UDim2.new(0, 150, 1, 0)
-SpeedLabel.Position = UDim2.new(0, 0, 0, 0)
+SpeedLabel.Size = UDim2.new(1, -20, 0, 30)
+SpeedLabel.Position = UDim2.new(0, 15, 0, 10)
 SpeedLabel.BackgroundTransparency = 1
 SpeedLabel.TextColor3 = Color3.new(1, 1, 1)
 SpeedLabel.Text = "تزيد سرعته"
+SpeedLabel.TextSize = 18
+SpeedLabel.Font = Enum.Font.GothamBold
 SpeedLabel.TextXAlignment = Enum.TextXAlignment.Left
 SpeedLabel.Parent = SpeedFrame
 
 local SpeedTextBox = Instance.new("TextBox")
 SpeedTextBox.Name = "SpeedTextBox"
-SpeedTextBox.Size = UDim2.new(0, 80, 0, 30)
-SpeedTextBox.Position = UDim2.new(1, -140, 0.5, -15)
-SpeedTextBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+SpeedTextBox.Size = UDim2.new(0, 120, 0, 35)
+SpeedTextBox.Position = UDim2.new(0, 15, 0, 50)
+SpeedTextBox.BackgroundColor3 = Color3.new(0.25, 0.25, 0.25)
 SpeedTextBox.TextColor3 = Color3.new(1, 1, 1)
-SpeedTextBox.PlaceholderText = "50"
-SpeedTextBox.Text = "50"
+SpeedTextBox.PlaceholderText = "ادخل السرعة"
+SpeedTextBox.Text = ""
+SpeedTextBox.TextSize = 16
+SpeedTextBox.Font = Enum.Font.Gotham
 SpeedTextBox.Parent = SpeedFrame
 
 local SpeedApply = Instance.new("TextButton")
 SpeedApply.Name = "SpeedApply"
-SpeedApply.Size = UDim2.new(0, 50, 0, 30)
-SpeedApply.Position = UDim2.new(1, -60, 0.5, -15)
-SpeedApply.BackgroundColor3 = Color3.new(0, 0.5, 0)
+SpeedApply.Size = UDim2.new(0, 80, 0, 35)
+SpeedApply.Position = UDim2.new(1, -95, 0, 50)
+SpeedApply.BackgroundColor3 = Color3.new(0, 0.6, 0)
 SpeedApply.TextColor3 = Color3.new(1, 1, 1)
 SpeedApply.Text = "تطبيق"
+SpeedApply.TextSize = 14
+SpeedApply.Font = Enum.Font.Gotham
 SpeedApply.Parent = SpeedFrame
 
 -- ESP Feature
 local ESPFrame = Instance.new("Frame")
 ESPFrame.Name = "ESPFrame"
-ESPFrame.Size = UDim2.new(1, -20, 0, 60)
-ESPFrame.Position = UDim2.new(0, 10, 0, 190)
-ESPFrame.BackgroundTransparency = 1
-ESPFrame.Parent = MainFrame
+ESPFrame.Size = UDim2.new(1, 0, 0, 70)
+ESPFrame.Position = UDim2.new(0, 0, 0, 200)
+ESPFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+ESPFrame.BorderSizePixel = 0
+ESPFrame.Parent = ScrollFrame
 
 local ESPLabel = Instance.new("TextLabel")
 ESPLabel.Name = "ESPLabel"
-ESPLabel.Size = UDim2.new(0, 150, 1, 0)
-ESPLabel.Position = UDim2.new(0, 0, 0, 0)
+ESPLabel.Size = UDim2.new(0, 200, 1, 0)
+ESPLabel.Position = UDim2.new(0, 15, 0, 0)
 ESPLabel.BackgroundTransparency = 1
 ESPLabel.TextColor3 = Color3.new(1, 1, 1)
 ESPLabel.Text = "رؤيت كل العيبه"
+ESPLabel.TextSize = 18
+ESPLabel.Font = Enum.Font.GothamBold
 ESPLabel.TextXAlignment = Enum.TextXAlignment.Left
 ESPLabel.Parent = ESPFrame
 
 local ESPToggle = Instance.new("TextButton")
 ESPToggle.Name = "ESPToggle"
-ESPToggle.Size = UDim2.new(0, 60, 0, 30)
-ESPToggle.Position = UDim2.new(1, -60, 0.5, -15)
-ESPToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+ESPToggle.Size = UDim2.new(0, 80, 0, 35)
+ESPToggle.Position = UDim2.new(1, -95, 0.5, -17.5)
+ESPToggle.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
 ESPToggle.TextColor3 = Color3.new(1, 1, 1)
-ESPToggle.Text = "O|X"
+ESPToggle.Text = "تشغيل"
+ESPToggle.TextSize = 14
+ESPToggle.Font = Enum.Font.Gotham
 ESPToggle.Parent = ESPFrame
 
 -- Teleport Feature
 local TeleportFrame = Instance.new("Frame")
 TeleportFrame.Name = "TeleportFrame"
-TeleportFrame.Size = UDim2.new(1, -20, 0, 60)
-TeleportFrame.Position = UDim2.new(0, 10, 0, 260)
-TeleportFrame.BackgroundTransparency = 1
-TeleportFrame.Parent = MainFrame
+TeleportFrame.Size = UDim2.new(1, 0, 0, 100)
+TeleportFrame.Position = UDim2.new(0, 0, 0, 280)
+TeleportFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+TeleportFrame.BorderSizePixel = 0
+TeleportFrame.Parent = ScrollFrame
 
 local TeleportLabel = Instance.new("TextLabel")
 TeleportLabel.Name = "TeleportLabel"
-TeleportLabel.Size = UDim2.new(0, 150, 1, 0)
-TeleportLabel.Position = UDim2.new(0, 0, 0, 0)
+TeleportLabel.Size = UDim2.new(1, -20, 0, 30)
+TeleportLabel.Position = UDim2.new(0, 15, 0, 10)
 TeleportLabel.BackgroundTransparency = 1
 TeleportLabel.TextColor3 = Color3.new(1, 1, 1)
 TeleportLabel.Text = "انتقال"
+TeleportLabel.TextSize = 18
+TeleportLabel.Font = Enum.Font.GothamBold
 TeleportLabel.TextXAlignment = Enum.TextXAlignment.Left
 TeleportLabel.Parent = TeleportFrame
 
 local TeleportTextBox = Instance.new("TextBox")
 TeleportTextBox.Name = "TeleportTextBox"
-TeleportTextBox.Size = UDim2.new(0, 120, 0, 30)
-TeleportTextBox.Position = UDim2.new(1, -130, 0.5, -15)
-TeleportTextBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+TeleportTextBox.Size = UDim2.new(1, -30, 0, 35)
+TeleportTextBox.Position = UDim2.new(0, 15, 0, 50)
+TeleportTextBox.BackgroundColor3 = Color3.new(0.25, 0.25, 0.25)
 TeleportTextBox.TextColor3 = Color3.new(1, 1, 1)
 TeleportTextBox.PlaceholderText = "اسم اللاعب"
+TeleportTextBox.Text = ""
+TeleportTextBox.TextSize = 16
+TeleportTextBox.Font = Enum.Font.Gotham
 TeleportTextBox.Parent = TeleportFrame
-
-local TeleportButton = Instance.new("TextButton")
-TeleportButton.Name = "TeleportButton"
-TeleportButton.Size = UDim2.new(0, 60, 0, 30)
-TeleportButton.Position = UDim2.new(1, -60, 0.5, -15)
-TeleportButton.BackgroundColor3 = Color3.new(0, 0.5, 0)
-TeleportButton.TextColor3 = Color3.new(1, 1, 1)
-TeleportButton.Text = "انتقال"
-TeleportButton.Parent = TeleportFrame
 
 -- Variables
 local flying = false
 local espEnabled = false
-local bodyVelocity
+local bodyVelocity, bodyGyro
 local espParts = {}
 
 -- Toggle Button Dragging
@@ -235,7 +263,7 @@ CloseButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
 
--- Flight System
+-- Improved Flight System
 local function toggleFlight()
     flying = not flying
     local character = player.Character
@@ -244,32 +272,42 @@ local function toggleFlight()
     local humanoid = character:FindFirstChildOfClass("Humanoid")
     if not humanoid then return end
     
+    local rootPart = character:FindFirstChild("HumanoidRootPart")
+    if not rootPart then return end
+    
     if flying then
-        FlightToggle.Text = "ON"
-        FlightToggle.BackgroundColor3 = Color3.new(0, 0.5, 0)
+        FlightToggle.Text = "هبوط"
+        FlightToggle.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
         
+        -- Create flight controls
         bodyVelocity = Instance.new("BodyVelocity")
         bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-        bodyVelocity.MaxForce = Vector3.new(0, 0, 0)
+        bodyVelocity.MaxForce = Vector3.new(40000, 40000, 40000)
         
-        local bodyGyro = Instance.new("BodyGyro")
-        bodyGyro.MaxTorque = Vector3.new(0, 0, 0)
+        bodyGyro = Instance.new("BodyGyro")
+        bodyGyro.MaxTorque = Vector3.new(40000, 40000, 40000)
+        bodyGyro.P = 1000
+        bodyGyro.D = 200
         
-        local rootPart = character:FindFirstChild("HumanoidRootPart")
-        if rootPart then
-            bodyVelocity.Parent = rootPart
-            bodyGyro.Parent = rootPart
-            bodyVelocity.MaxForce = Vector3.new(40000, 40000, 40000)
-            bodyGyro.MaxTorque = Vector3.new(40000, 40000, 40000)
-        end
+        bodyVelocity.Parent = rootPart
+        bodyGyro.Parent = rootPart
+        
+        humanoid.PlatformStand = true
+        
     else
-        FlightToggle.Text = "O|X"
-        FlightToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        FlightToggle.Text = "إقلاع"
+        FlightToggle.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
         
         if bodyVelocity then
             bodyVelocity:Destroy()
             bodyVelocity = nil
         end
+        if bodyGyro then
+            bodyGyro:Destroy()
+            bodyGyro = nil
+        end
+        
+        humanoid.PlatformStand = false
     end
 end
 
@@ -278,7 +316,7 @@ FlightToggle.MouseButton1Click:Connect(toggleFlight)
 -- Speed System
 SpeedApply.MouseButton1Click:Connect(function()
     local speedValue = tonumber(SpeedTextBox.Text)
-    if speedValue then
+    if speedValue and speedValue > 0 then
         local character = player.Character
         if character then
             local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -317,8 +355,8 @@ local function toggleESP()
     espEnabled = not espEnabled
     
     if espEnabled then
-        ESPToggle.Text = "ON"
-        ESPToggle.BackgroundColor3 = Color3.new(0, 0.5, 0)
+        ESPToggle.Text = "إيقاف"
+        ESPToggle.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
         
         -- Add ESP for existing players
         for _, otherPlayer in pairs(Players:GetPlayers()) do
@@ -339,8 +377,8 @@ local function toggleESP()
             removeESP(leavingPlayer)
         end)
     else
-        ESPToggle.Text = "O|X"
-        ESPToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        ESPToggle.Text = "تشغيل"
+        ESPToggle.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
         
         -- Remove all ESP
         for targetPlayer, highlight in pairs(espParts) do
@@ -353,31 +391,33 @@ end
 ESPToggle.MouseButton1Click:Connect(toggleESP)
 
 -- Teleport System
-TeleportButton.MouseButton1Click:Connect(function()
-    local targetName = TeleportTextBox.Text
-    if targetName == "" then return end
-    
-    for _, otherPlayer in pairs(Players:GetPlayers()) do
-        if otherPlayer.Name:lower():find(targetName:lower()) then
-            local targetCharacter = otherPlayer.Character
-            local localCharacter = player.Character
-            
-            if targetCharacter and localCharacter then
-                local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
-                local localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
+TeleportTextBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        local targetName = TeleportTextBox.Text
+        if targetName == "" then return end
+        
+        for _, otherPlayer in pairs(Players:GetPlayers()) do
+            if otherPlayer.Name:lower():find(targetName:lower()) or otherPlayer.DisplayName:lower():find(targetName:lower()) then
+                local targetCharacter = otherPlayer.Character
+                local localCharacter = player.Character
                 
-                if targetRoot and localRoot then
-                    localRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
-                    break
+                if targetCharacter and localCharacter then
+                    local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
+                    local localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
+                    
+                    if targetRoot and localRoot then
+                        localRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
+                        break
+                    end
                 end
             end
         end
     end
 end)
 
--- Flight Movement
+-- Improved Flight Movement
 RunService.Heartbeat:Connect(function()
-    if flying and bodyVelocity then
+    if flying and bodyVelocity and bodyGyro then
         local character = player.Character
         if not character then return end
         
@@ -385,7 +425,10 @@ RunService.Heartbeat:Connect(function()
         if not rootPart then return end
         
         local camera = workspace.CurrentCamera
+        bodyGyro.CFrame = camera.CFrame
+        
         local moveDirection = Vector3.new(0, 0, 0)
+        local flightSpeed = 50
         
         if UserInputService:IsKeyDown(Enum.KeyCode.W) then
             moveDirection = moveDirection + camera.CFrame.LookVector
@@ -406,8 +449,12 @@ RunService.Heartbeat:Connect(function()
             moveDirection = moveDirection - Vector3.new(0, 1, 0)
         end
         
-        bodyVelocity.Velocity = moveDirection * 50
+        if moveDirection.Magnitude > 0 then
+            moveDirection = moveDirection.Unit * flightSpeed
+        end
+        
+        bodyVelocity.Velocity = moveDirection
     end
 end)
 
-print("Script loaded successfully!")
+print("SKR Script loaded successfully!")
