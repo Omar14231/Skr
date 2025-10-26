@@ -12,12 +12,12 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "MainGUI"
 ScreenGui.Parent = player.PlayerGui
 
--- Main Toggle Button
+-- Main Toggle Button - Smaller size
 local ToggleButton = Instance.new("ImageButton")
 ToggleButton.Name = "ToggleButton"
 ToggleButton.Image = "rbxassetid://113897764094984"
-ToggleButton.Size = UDim2.new(0, 60, 0, 60)
-ToggleButton.Position = UDim2.new(0, 20, 0.5, -30)
+ToggleButton.Size = UDim2.new(0, 40, 0, 40) -- أصغر حجم
+ToggleButton.Position = UDim2.new(0, 20, 0.5, -20)
 ToggleButton.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
 ToggleButton.BackgroundTransparency = 0.2
 ToggleButton.BorderSizePixel = 0
@@ -217,7 +217,7 @@ local espEnabled = false
 local bodyVelocity, bodyGyro
 local espParts = {}
 
--- Toggle Button Dragging
+-- Toggle Button Dragging - محسن للزر الصغير
 local dragging = false
 local dragInput
 local dragStart
@@ -225,7 +225,14 @@ local startPos
 
 local function updateInput(input)
     local delta = input.Position - dragStart
-    ToggleButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    local newX = startPos.X.Offset + delta.X
+    local newY = startPos.Y.Offset + delta.Y
+    
+    -- التأكد من أن الزر يبقى داخل الشاشة
+    newX = math.clamp(newX, 0, ScreenGui.AbsoluteSize.X - ToggleButton.AbsoluteSize.X)
+    newY = math.clamp(newY, 0, ScreenGui.AbsoluteSize.Y - ToggleButton.AbsoluteSize.Y)
+    
+    ToggleButton.Position = UDim2.new(0, newX, 0, newY)
 end
 
 ToggleButton.InputBegan:Connect(function(input)
@@ -263,7 +270,7 @@ CloseButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = false
 end)
 
--- Improved Flight System
+-- Improved Flight System - يمشي بشكل طبيعي
 local function toggleFlight()
     flying = not flying
     local character = player.Character
@@ -279,24 +286,28 @@ local function toggleFlight()
         FlightToggle.Text = "هبوط"
         FlightToggle.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
         
-        -- Create flight controls
+        -- إلغاء الجاذبية أثناء الطيران
+        humanoid.PlatformStand = true
+        
+        -- إنشاء عناصر التحكم بالطيران
         bodyVelocity = Instance.new("BodyVelocity")
         bodyVelocity.Velocity = Vector3.new(0, 0, 0)
-        bodyVelocity.MaxForce = Vector3.new(40000, 40000, 40000)
+        bodyVelocity.MaxForce = Vector3.new(10000, 10000, 10000) -- قوة أقل لحركة أكثر سلاسة
         
         bodyGyro = Instance.new("BodyGyro")
-        bodyGyro.MaxTorque = Vector3.new(40000, 40000, 40000)
+        bodyGyro.MaxTorque = Vector3.new(40000, 0, 40000) -- إزالة التحكم في الميل الجانبي
         bodyGyro.P = 1000
         bodyGyro.D = 200
         
         bodyVelocity.Parent = rootPart
         bodyGyro.Parent = rootPart
         
-        humanoid.PlatformStand = true
-        
     else
         FlightToggle.Text = "إقلاع"
         FlightToggle.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+        
+        -- إعادة الجاذبية
+        humanoid.PlatformStand = false
         
         if bodyVelocity then
             bodyVelocity:Destroy()
@@ -306,8 +317,6 @@ local function toggleFlight()
             bodyGyro:Destroy()
             bodyGyro = nil
         end
-        
-        humanoid.PlatformStand = false
     end
 end
 
@@ -415,7 +424,7 @@ TeleportTextBox.FocusLost:Connect(function(enterPressed)
     end
 end)
 
--- Improved Flight Movement
+-- Improved Flight Movement - حركة طيران طبيعية
 RunService.Heartbeat:Connect(function()
     if flying and bodyVelocity and bodyGyro then
         local character = player.Character
@@ -425,22 +434,28 @@ RunService.Heartbeat:Connect(function()
         if not rootPart then return end
         
         local camera = workspace.CurrentCamera
-        bodyGyro.CFrame = camera.CFrame
+        
+        -- توجيه الجسم نحو اتجاه الكاميرا (بدون الميل)
+        local cameraCFrame = camera.CFrame
+        local lookVector = cameraCFrame.LookVector
+        local newCFrame = CFrame.new(rootPart.Position, rootPart.Position + Vector3.new(lookVector.X, 0, lookVector.Z))
+        bodyGyro.CFrame = newCFrame
         
         local moveDirection = Vector3.new(0, 0, 0)
         local flightSpeed = 50
         
+        -- التحكم في الحركة
         if UserInputService:IsKeyDown(Enum.KeyCode.W) then
-            moveDirection = moveDirection + camera.CFrame.LookVector
+            moveDirection = moveDirection + cameraCFrame.LookVector
         end
         if UserInputService:IsKeyDown(Enum.KeyCode.S) then
-            moveDirection = moveDirection - camera.CFrame.LookVector
+            moveDirection = moveDirection - cameraCFrame.LookVector
         end
         if UserInputService:IsKeyDown(Enum.KeyCode.A) then
-            moveDirection = moveDirection - camera.CFrame.RightVector
+            moveDirection = moveDirection - cameraCFrame.RightVector
         end
         if UserInputService:IsKeyDown(Enum.KeyCode.D) then
-            moveDirection = moveDirection + camera.CFrame.RightVector
+            moveDirection = moveDirection + cameraCFrame.RightVector
         end
         if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
             moveDirection = moveDirection + Vector3.new(0, 1, 0)
@@ -449,6 +464,7 @@ RunService.Heartbeat:Connect(function()
             moveDirection = moveDirection - Vector3.new(0, 1, 0)
         end
         
+        -- تطبيق الحركة
         if moveDirection.Magnitude > 0 then
             moveDirection = moveDirection.Unit * flightSpeed
         end
