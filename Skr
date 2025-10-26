@@ -1,0 +1,413 @@
+-- Script for Roblox Flight, Speed, ESP, and Teleport GUI
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+local player = Players.LocalPlayer
+local mouse = player:GetMouse()
+
+-- GUI Creation
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "MainGUI"
+ScreenGui.Parent = player.PlayerGui
+
+-- Main Toggle Button
+local ToggleButton = Instance.new("ImageButton")
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Image = "rbxassetid://113897764094984"
+ToggleButton.Size = UDim2.new(0, 50, 0, 50)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, -25)
+ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
+ToggleButton.BackgroundTransparency = 0.3
+ToggleButton.BorderSizePixel = 0
+ToggleButton.Parent = ScreenGui
+
+-- Main Menu Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 300, 0, 400)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -200)
+MainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+MainFrame.BorderColor3 = Color3.new(1, 1, 1)
+MainFrame.BorderSizePixel = 2
+MainFrame.Visible = false
+MainFrame.Parent = ScreenGui
+
+-- Close Button
+local CloseButton = Instance.new("TextButton")
+CloseButton.Name = "CloseButton"
+CloseButton.Size = UDim2.new(0, 30, 0, 30)
+CloseButton.Position = UDim2.new(1, -35, 0, 5)
+CloseButton.BackgroundColor3 = Color3.new(1, 0, 0)
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+CloseButton.Text = "×"
+CloseButton.TextSize = 20
+CloseButton.Parent = MainFrame
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(0, 200, 0, 30)
+Title.Position = UDim2.new(0, 10, 0, 5)
+Title.BackgroundTransparency = 1
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Text = "الأوامر"
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = MainFrame
+
+-- Flight Feature
+local FlightFrame = Instance.new("Frame")
+FlightFrame.Name = "FlightFrame"
+FlightFrame.Size = UDim2.new(1, -20, 0, 60)
+FlightFrame.Position = UDim2.new(0, 10, 0, 50)
+FlightFrame.BackgroundTransparency = 1
+FlightFrame.Parent = MainFrame
+
+local FlightLabel = Instance.new("TextLabel")
+FlightLabel.Name = "FlightLabel"
+FlightLabel.Size = UDim2.new(0, 150, 1, 0)
+FlightLabel.Position = UDim2.new(0, 0, 0, 0)
+FlightLabel.BackgroundTransparency = 1
+FlightLabel.TextColor3 = Color3.new(1, 1, 1)
+FlightLabel.Text = "طيران"
+FlightLabel.TextXAlignment = Enum.TextXAlignment.Left
+FlightLabel.Parent = FlightFrame
+
+local FlightToggle = Instance.new("TextButton")
+FlightToggle.Name = "FlightToggle"
+FlightToggle.Size = UDim2.new(0, 60, 0, 30)
+FlightToggle.Position = UDim2.new(1, -60, 0.5, -15)
+FlightToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+FlightToggle.TextColor3 = Color3.new(1, 1, 1)
+FlightToggle.Text = "O|X"
+FlightToggle.Parent = FlightFrame
+
+-- Speed Feature
+local SpeedFrame = Instance.new("Frame")
+SpeedFrame.Name = "SpeedFrame"
+SpeedFrame.Size = UDim2.new(1, -20, 0, 60)
+SpeedFrame.Position = UDim2.new(0, 10, 0, 120)
+SpeedFrame.BackgroundTransparency = 1
+SpeedFrame.Parent = MainFrame
+
+local SpeedLabel = Instance.new("TextLabel")
+SpeedLabel.Name = "SpeedLabel"
+SpeedLabel.Size = UDim2.new(0, 150, 1, 0)
+SpeedLabel.Position = UDim2.new(0, 0, 0, 0)
+SpeedLabel.BackgroundTransparency = 1
+SpeedLabel.TextColor3 = Color3.new(1, 1, 1)
+SpeedLabel.Text = "تزيد سرعته"
+SpeedLabel.TextXAlignment = Enum.TextXAlignment.Left
+SpeedLabel.Parent = SpeedFrame
+
+local SpeedTextBox = Instance.new("TextBox")
+SpeedTextBox.Name = "SpeedTextBox"
+SpeedTextBox.Size = UDim2.new(0, 80, 0, 30)
+SpeedTextBox.Position = UDim2.new(1, -140, 0.5, -15)
+SpeedTextBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+SpeedTextBox.TextColor3 = Color3.new(1, 1, 1)
+SpeedTextBox.PlaceholderText = "50"
+SpeedTextBox.Text = "50"
+SpeedTextBox.Parent = SpeedFrame
+
+local SpeedApply = Instance.new("TextButton")
+SpeedApply.Name = "SpeedApply"
+SpeedApply.Size = UDim2.new(0, 50, 0, 30)
+SpeedApply.Position = UDim2.new(1, -60, 0.5, -15)
+SpeedApply.BackgroundColor3 = Color3.new(0, 0.5, 0)
+SpeedApply.TextColor3 = Color3.new(1, 1, 1)
+SpeedApply.Text = "تطبيق"
+SpeedApply.Parent = SpeedFrame
+
+-- ESP Feature
+local ESPFrame = Instance.new("Frame")
+ESPFrame.Name = "ESPFrame"
+ESPFrame.Size = UDim2.new(1, -20, 0, 60)
+ESPFrame.Position = UDim2.new(0, 10, 0, 190)
+ESPFrame.BackgroundTransparency = 1
+ESPFrame.Parent = MainFrame
+
+local ESPLabel = Instance.new("TextLabel")
+ESPLabel.Name = "ESPLabel"
+ESPLabel.Size = UDim2.new(0, 150, 1, 0)
+ESPLabel.Position = UDim2.new(0, 0, 0, 0)
+ESPLabel.BackgroundTransparency = 1
+ESPLabel.TextColor3 = Color3.new(1, 1, 1)
+ESPLabel.Text = "رؤيت كل العيبه"
+ESPLabel.TextXAlignment = Enum.TextXAlignment.Left
+ESPLabel.Parent = ESPFrame
+
+local ESPToggle = Instance.new("TextButton")
+ESPToggle.Name = "ESPToggle"
+ESPToggle.Size = UDim2.new(0, 60, 0, 30)
+ESPToggle.Position = UDim2.new(1, -60, 0.5, -15)
+ESPToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+ESPToggle.TextColor3 = Color3.new(1, 1, 1)
+ESPToggle.Text = "O|X"
+ESPToggle.Parent = ESPFrame
+
+-- Teleport Feature
+local TeleportFrame = Instance.new("Frame")
+TeleportFrame.Name = "TeleportFrame"
+TeleportFrame.Size = UDim2.new(1, -20, 0, 60)
+TeleportFrame.Position = UDim2.new(0, 10, 0, 260)
+TeleportFrame.BackgroundTransparency = 1
+TeleportFrame.Parent = MainFrame
+
+local TeleportLabel = Instance.new("TextLabel")
+TeleportLabel.Name = "TeleportLabel"
+TeleportLabel.Size = UDim2.new(0, 150, 1, 0)
+TeleportLabel.Position = UDim2.new(0, 0, 0, 0)
+TeleportLabel.BackgroundTransparency = 1
+TeleportLabel.TextColor3 = Color3.new(1, 1, 1)
+TeleportLabel.Text = "انتقال"
+TeleportLabel.TextXAlignment = Enum.TextXAlignment.Left
+TeleportLabel.Parent = TeleportFrame
+
+local TeleportTextBox = Instance.new("TextBox")
+TeleportTextBox.Name = "TeleportTextBox"
+TeleportTextBox.Size = UDim2.new(0, 120, 0, 30)
+TeleportTextBox.Position = UDim2.new(1, -130, 0.5, -15)
+TeleportTextBox.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+TeleportTextBox.TextColor3 = Color3.new(1, 1, 1)
+TeleportTextBox.PlaceholderText = "اسم اللاعب"
+TeleportTextBox.Parent = TeleportFrame
+
+local TeleportButton = Instance.new("TextButton")
+TeleportButton.Name = "TeleportButton"
+TeleportButton.Size = UDim2.new(0, 60, 0, 30)
+TeleportButton.Position = UDim2.new(1, -60, 0.5, -15)
+TeleportButton.BackgroundColor3 = Color3.new(0, 0.5, 0)
+TeleportButton.TextColor3 = Color3.new(1, 1, 1)
+TeleportButton.Text = "انتقال"
+TeleportButton.Parent = TeleportFrame
+
+-- Variables
+local flying = false
+local espEnabled = false
+local bodyVelocity
+local espParts = {}
+
+-- Toggle Button Dragging
+local dragging = false
+local dragInput
+local dragStart
+local startPos
+
+local function updateInput(input)
+    local delta = input.Position - dragStart
+    ToggleButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+ToggleButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        dragStart = input.Position
+        startPos = ToggleButton.Position
+        
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+ToggleButton.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        updateInput(input)
+    end
+end)
+
+-- Toggle Menu
+ToggleButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+CloseButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+end)
+
+-- Flight System
+local function toggleFlight()
+    flying = not flying
+    local character = player.Character
+    if not character then return end
+    
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return end
+    
+    if flying then
+        FlightToggle.Text = "ON"
+        FlightToggle.BackgroundColor3 = Color3.new(0, 0.5, 0)
+        
+        bodyVelocity = Instance.new("BodyVelocity")
+        bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+        bodyVelocity.MaxForce = Vector3.new(0, 0, 0)
+        
+        local bodyGyro = Instance.new("BodyGyro")
+        bodyGyro.MaxTorque = Vector3.new(0, 0, 0)
+        
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        if rootPart then
+            bodyVelocity.Parent = rootPart
+            bodyGyro.Parent = rootPart
+            bodyVelocity.MaxForce = Vector3.new(40000, 40000, 40000)
+            bodyGyro.MaxTorque = Vector3.new(40000, 40000, 40000)
+        end
+    else
+        FlightToggle.Text = "O|X"
+        FlightToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        
+        if bodyVelocity then
+            bodyVelocity:Destroy()
+            bodyVelocity = nil
+        end
+    end
+end
+
+FlightToggle.MouseButton1Click:Connect(toggleFlight)
+
+-- Speed System
+SpeedApply.MouseButton1Click:Connect(function()
+    local speedValue = tonumber(SpeedTextBox.Text)
+    if speedValue then
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.WalkSpeed = speedValue
+            end
+        end
+    end
+end)
+
+-- ESP System
+local function createESP(targetPlayer)
+    local character = targetPlayer.Character
+    if not character then return end
+    
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "ESP_" .. targetPlayer.Name
+    highlight.FillColor = Color3.new(math.random(), math.random(), math.random())
+    highlight.OutlineColor = Color3.new(1, 1, 1)
+    highlight.FillTransparency = 0.5
+    highlight.OutlineTransparency = 0
+    highlight.Parent = character
+    highlight.Adornee = character
+    
+    espParts[targetPlayer] = highlight
+end
+
+local function removeESP(targetPlayer)
+    if espParts[targetPlayer] then
+        espParts[targetPlayer]:Destroy()
+        espParts[targetPlayer] = nil
+    end
+end
+
+local function toggleESP()
+    espEnabled = not espEnabled
+    
+    if espEnabled then
+        ESPToggle.Text = "ON"
+        ESPToggle.BackgroundColor3 = Color3.new(0, 0.5, 0)
+        
+        -- Add ESP for existing players
+        for _, otherPlayer in pairs(Players:GetPlayers()) do
+            if otherPlayer ~= player then
+                createESP(otherPlayer)
+            end
+        end
+        
+        -- Listen for new players
+        Players.PlayerAdded:Connect(function(newPlayer)
+            if espEnabled then
+                createESP(newPlayer)
+            end
+        end)
+        
+        -- Listen for players leaving
+        Players.PlayerRemoving:Connect(function(leavingPlayer)
+            removeESP(leavingPlayer)
+        end)
+    else
+        ESPToggle.Text = "O|X"
+        ESPToggle.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        
+        -- Remove all ESP
+        for targetPlayer, highlight in pairs(espParts) do
+            highlight:Destroy()
+        end
+        espParts = {}
+    end
+end
+
+ESPToggle.MouseButton1Click:Connect(toggleESP)
+
+-- Teleport System
+TeleportButton.MouseButton1Click:Connect(function()
+    local targetName = TeleportTextBox.Text
+    if targetName == "" then return end
+    
+    for _, otherPlayer in pairs(Players:GetPlayers()) do
+        if otherPlayer.Name:lower():find(targetName:lower()) then
+            local targetCharacter = otherPlayer.Character
+            local localCharacter = player.Character
+            
+            if targetCharacter and localCharacter then
+                local targetRoot = targetCharacter:FindFirstChild("HumanoidRootPart")
+                local localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
+                
+                if targetRoot and localRoot then
+                    localRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 3, 0)
+                    break
+                end
+            end
+        end
+    end
+end)
+
+-- Flight Movement
+RunService.Heartbeat:Connect(function()
+    if flying and bodyVelocity then
+        local character = player.Character
+        if not character then return end
+        
+        local rootPart = character:FindFirstChild("HumanoidRootPart")
+        if not rootPart then return end
+        
+        local camera = workspace.CurrentCamera
+        local moveDirection = Vector3.new(0, 0, 0)
+        
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+            moveDirection = moveDirection + camera.CFrame.LookVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+            moveDirection = moveDirection - camera.CFrame.LookVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+            moveDirection = moveDirection - camera.CFrame.RightVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+            moveDirection = moveDirection + camera.CFrame.RightVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.Space) then
+            moveDirection = moveDirection + Vector3.new(0, 1, 0)
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) then
+            moveDirection = moveDirection - Vector3.new(0, 1, 0)
+        end
+        
+        bodyVelocity.Velocity = moveDirection * 50
+    end
+end)
+
+print("Script loaded successfully!")
